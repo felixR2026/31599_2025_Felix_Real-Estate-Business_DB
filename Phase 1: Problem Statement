@@ -1,1 +1,106 @@
+1. Introduction
 
+A real estate business manages properties such as houses, apartments, land, and commercial buildings for sale or rent. Managing this information manually often leads to errors, duplicate records, misplaced documents, and delays in serving customers.
+
+This project develops an Oracle Database system that stores and manages property information, customer records, agents, property owners, sales, rentals, and payments. The system uses SQL and PL/SQL to improve efficiency, maintain data integrity, and support secure business operations.
+
+2. Problem Definition
+
+Many real estate businesses still rely on paper records or spreadsheets to manage properties and transactions. This creates several problems:
+
+Property information is difficult to update.
+Customer records may be duplicated.
+Property owners cannot easily track their properties.
+Sales and rental records are difficult to retrieve.
+Payment history may be lost.
+Reports take a long time to prepare.
+There is little or no security over business data.
+3. Proposed Solution
+
+The proposed solution is an Oracle Database system that allows the real estate company to:
+
+Register property owners.
+Register customers.
+Manage real estate agents.
+Store property details.
+Record property sales.
+Record rental agreements.
+Record customer payments.
+Schedule property visits.
+Generate reports.
+Secure data using Oracle constraints, triggers, and auditing.
+4. Context of Use
+
+The system will be used by a real estate company to manage its daily operations.
+
+It will support:
+
+Property registration
+Property selling
+Property renting
+Customer management
+Payment tracking
+Reporting
+5. Target Users
+
+The system will be used by:
+
+Administrator – manages the database and users.
+Real Estate Agent – registers properties, customers, and sales.
+Property Owner – provides property information.
+Customer – buys or rents properties.
+Manager – views reports and monitors business performance.
+6. Project Objectives
+Main Objective
+
+To develop an Oracle Database system that efficiently manages real estate business operations using SQL and PL/SQL.
+
+Specific Objectives
+Store property information.
+Manage property owners.
+Manage customers.
+Manage real estate agents.
+Record sales transactions.
+Record rental agreements.
+Record payments.
+Improve data security.
+Generate business reports.
+Reduce manual record keeping.
+7. Scope of the Project
+
+The system will include:
+
+Property Management
+Owner Management
+Customer Management
+Agent Management
+Property Sales
+Rental Management
+Payment Management
+Property Visit Scheduling
+Audit Logging
+User Security
+
+The system will not include online payment processing or mobile applications.
+
+8. Expected Benefits
+
+The system will:
+
+Reduce paperwork.
+Improve data accuracy.
+Reduce duplicate records.
+Improve customer service.
+Increase business efficiency.
+Secure important business information.
+Generate reports quickly.
+Support better decision-making.
+9. Technologies Used
+Oracle Database 21c XE
+SQL
+PL/SQL
+Oracle SQL Developer
+Oracle Enterprise Manager (OEM)
+GitHub
+Microsoft PowerPoint
+Microsoft Word
