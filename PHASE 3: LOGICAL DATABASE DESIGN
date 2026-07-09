@@ -1,0 +1,146 @@
+1. Entities
+
+Our Real Estate Business Database will contain 11 tables.
+
+No	Entity (Table)	Description
+1	PropertyOwner	Stores property owner information
+2	Agent	Stores employee information
+3	Customer	Stores customer information
+4	PropertyType	Types of properties
+5	Property	Stores all property details
+6	Visit	Records customer property visits
+7	Sale	Records sold properties
+8	Rental	Records rented properties
+9	Payment	Records customer payments
+10	Holiday	Stores public holidays (used by triggers)
+11	AuditLog	Stores user activity logs
+2. Attributes
+PropertyOwner
+Attribute	Type	Key
+OwnerID	NUMBER	PK
+FullName	VARCHAR2(100)	
+Phone	VARCHAR2(20)	
+Email	VARCHAR2(100)	UNIQUE
+Address	VARCHAR2(150)	
+Agent
+Attribute	Type	Key
+AgentID	NUMBER	PK
+FullName	VARCHAR2(100)	
+Phone	VARCHAR2(20)	
+Email	VARCHAR2(100)	UNIQUE
+CommissionRate	NUMBER(5,2)	
+Customer
+Attribute	Type	Key
+CustomerID	NUMBER	PK
+FullName	VARCHAR2(100)	
+Phone	VARCHAR2(20)	
+Email	VARCHAR2(100)	UNIQUE
+Address	VARCHAR2(150)	
+PropertyType
+Attribute	Type	Key
+PropertyTypeID	NUMBER	PK
+TypeName	VARCHAR2(50)	
+
+Examples:
+
+House
+Apartment
+Land
+Office
+Commercial Building
+Property
+Attribute	Type	Key
+PropertyID	NUMBER	PK
+OwnerID	NUMBER	FK
+AgentID	NUMBER	FK
+PropertyTypeID	NUMBER	FK
+PropertyName	VARCHAR2(100)	
+Location	VARCHAR2(100)	
+Price	NUMBER(12,2)	
+Status	VARCHAR2(20)	
+Bedrooms	NUMBER	
+Bathrooms	NUMBER	
+Visit
+Attribute	Type	Key
+VisitID	NUMBER	PK
+PropertyID	NUMBER	FK
+CustomerID	NUMBER	FK
+AgentID	NUMBER	FK
+VisitDate	DATE	
+Sale
+Attribute	Type	Key
+SaleID	NUMBER	PK
+PropertyID	NUMBER	FK
+CustomerID	NUMBER	FK
+AgentID	NUMBER	FK
+SaleDate	DATE	
+SaleAmount	NUMBER(12,2)	
+Rental
+Attribute	Type	Key
+RentalID	NUMBER	PK
+PropertyID	NUMBER	FK
+CustomerID	NUMBER	FK
+AgentID	NUMBER	FK
+StartDate	DATE	
+EndDate	DATE	
+MonthlyRent	NUMBER(12,2)	
+Payment
+Attribute	Type	Key
+PaymentID	NUMBER	PK
+CustomerID	NUMBER	FK
+PropertyID	NUMBER	FK
+Amount	NUMBER(12,2)	
+PaymentDate	DATE	
+PaymentMethod	VARCHAR2(30)	
+Holiday
+Attribute	Type	Key
+HolidayID	NUMBER	PK
+HolidayDate	DATE	
+HolidayName	VARCHAR2(100)	
+AuditLog
+Attribute	Type	Key
+AuditID	NUMBER	PK
+Username	VARCHAR2(50)	
+Action	VARCHAR2(30)	
+TableName	VARCHAR2(50)	
+ActionDate	DATE	
+3. Relationships
+Parent Table	Child Table	Relationship
+PropertyOwner	Property	One Owner → Many Properties (1:M)
+Agent	Property	One Agent → Many Properties (1:M)
+PropertyType	Property	One Type → Many Properties (1:M)
+Property	Visit	One Property → Many Visits (1:M)
+Customer	Visit	One Customer → Many Visits (1:M)
+Property	Sale	One Property → One Sale (1:1 after sale)
+Customer	Sale	One Customer → Many Purchases (1:M)
+Property	Rental	One Property → Many Rentals over time (1:M)
+Customer	Rental	One Customer → Many Rentals (1:M)
+Customer	Payment	One Customer → Many Payments (1:M)
+Property	Payment	One Property → Many Payments (1:M)
+
+5. Normalization
+First Normal Form (1NF)
+Each table has a primary key.
+No repeating groups.
+Each field contains only one value.
+
+Result: ✔ Achieved
+
+Second Normal Form (2NF)
+All non-key attributes depend on the entire primary key.
+No partial dependency.
+
+Result: ✔ Achieved
+
+Third Normal Form (3NF)
+No transitive dependencies.
+Attributes depend only on the primary key.
+
+Result: ✔ Achieved
+
+Database Summary
+Total Tables	11
+Primary Keys	11
+Foreign Keys	13
+Normalization	3NF
+Ready for Oracle	✔
