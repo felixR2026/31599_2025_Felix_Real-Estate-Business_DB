@@ -1,1 +1,161 @@
+1. System Scope
 
+The Real Estate Business Database System will manage the daily activities of a real estate company. It will allow administrators and agents to manage property listings, property owners, customers, property visits, sales, rentals, and payments. The system will also generate reports and maintain audit logs to improve security and accountability.
+
+The system covers:
+Property registration
+Property owner management
+Customer registration
+Real estate agent management
+Property visits
+Property sales
+Property rentals
+Payment management
+Report generation
+Audit logging
+2. Actors
+Actor	Responsibility
+Administrator	Manages users, database, reports, and security
+Real Estate Agent	Registers properties, owners, customers, visits, sales, and rentals
+Property Owner	Provides property information to the agency
+Customer	Buys or rents properties
+Manager	Reviews reports and monitors business performance
+3. Main Business Processes
+Property Registration
+Register a property owner.
+Add a new property.
+Assign the property to an agent.
+Customer Registration
+Register a customer.
+Store customer contact information.
+Property Visit
+Customer requests a visit.
+Agent schedules the visit.
+Visit record is stored.
+Property Sale
+Customer chooses a property.
+Agent confirms availability.
+Sale is recorded.
+Payment is recorded.
+Property status changes to Sold.
+Property Rental
+Customer selects a rental property.
+Rental agreement is created.
+Payment is recorded.
+Property status changes to Rented.
+Reporting
+Generate sales reports.
+Generate rental reports.
+Generate payment reports.
+Generate property availability reports.
+4. Use Case Diagram (Text Version)
+                 +----------------------+
+                 |   Administrator      |
+                 +----------------------+
+                     |     |      |
+                     |     |      |
+        ------------------------------
+        |             |             |
+ Manage Users   View Reports   Audit Logs
+
+                 +------------------+
+                 |      Agent       |
+                 +------------------+
+                  |    |    |    |
+                  |    |    |    |
+      Register Property
+      Register Customer
+      Schedule Visit
+      Record Sale
+      Record Rental
+      Record Payment
+
+              +----------------+
+              |   Customer     |
+              +----------------+
+                |          |
+                |          |
+        Buy Property   Rent Property
+
+             +-------------------+
+             | Property Owner    |
+             +-------------------+
+                     |
+             Register Property
+5. Business Workflow
+Start
+   │
+   ▼
+Register Property Owner
+   │
+   ▼
+Register Property
+   │
+   ▼
+Property Available
+   │
+   ▼
+Customer Registration
+   │
+   ▼
+Schedule Property Visit
+   │
+   ▼
+Customer Decision
+   │
+ ┌─┴───────────────┐
+ │                 │
+ ▼                 ▼
+Buy             Rent
+ │                 │
+ ▼                 ▼
+Record Sale    Record Rental
+ │                 │
+ └───────┬─────────┘
+         ▼
+Record Payment
+         │
+         ▼
+Generate Reports
+         │
+         ▼
+Audit Activities
+         │
+         ▼
+End
+6. Swimlane Diagram (Text Version)
+Customer         Agent             Database            Administrator
+
+Request Property
+      │
+      ▼
+              Register Customer
+                     │
+                     ▼
+                 Save Customer
+                     │
+      Request Visit
+                     ▼
+              Schedule Visit
+                     │
+                     ▼
+                 Save Visit
+                     │
+Customer Buys/Rents
+                     ▼
+            Record Sale/Rental
+                     │
+                     ▼
+               Record Payment
+                     │
+                     ▼
+              Update Property
+                                             View Reports
+                                             Audit Logs
+7. One-Page Explanation
+
+The Real Estate Business Database System is designed to improve the management of properties, customers, property owners, agents, sales, rentals, and payments. The process begins when a property owner registers a property with the real estate company. A real estate agent records the property details in the database, making it available for sale or rent.
+
+Customers register before requesting to view available properties. Agents schedule property visits, and after viewing, customers may choose to buy or rent a property. The system records all sales or rental agreements, stores payment information, and automatically updates the property's availability status.
+
+Administrators oversee user accounts, security, and reporting, while managers use generated reports to monitor company performance. Every important database activity is audited to enhance security and accountability. This workflow ensures accurate records, reduces manual work, and improves customer service.
