@@ -1,0 +1,267 @@
+Query 1 – Display All Properties
+
+ 
+SELECT *
+FROM Property;
+
+
+Query 2 – Show Available Properties Only
+
+
+SELECT PropertyID,
+       PropertyName,
+       Location,
+       Price
+FROM Property
+WHERE Status = 'Available';
+
+Query 3 – Properties Costing More Than 100 Million
+
+SELECT PropertyName,
+       Location,
+       Price
+FROM Property
+WHERE Price > 100000000
+ORDER BY Price DESC;
+
+Query 4 – List All Customers Alphabetically
+
+SELECT CustomerID,
+       FullName,
+       Phone
+FROM Customer
+ORDER BY FullName;
+
+Query 5 – Count Total Properties
+
+SELECT COUNT(*) AS Total_Properties
+FROM Property;
+
+Query 6 – INNER JOIN
+
+Display each property with its owner.
+
+SELECT
+    p.PropertyID,
+    p.PropertyName,
+    p.Location,
+    o.FullName AS OwnerName
+FROM Property p
+INNER JOIN PropertyOwner o
+ON p.OwnerID = o.OwnerID;
+
+Query 7 – INNER JOIN
+
+Display each property with its property type.
+
+SELECT
+    p.PropertyName,
+    pt.TypeName,
+    p.Price
+FROM Property p
+INNER JOIN PropertyType pt
+ON p.PropertyTypeID = pt.PropertyTypeID;
+
+Query 8 – GROUP BY
+
+Count how many properties each owner has.
+
+SELECT
+    o.FullName,
+    COUNT(p.PropertyID) AS TotalProperties
+FROM PropertyOwner o
+INNER JOIN Property p
+ON o.OwnerID = p.OwnerID
+GROUP BY o.FullName
+ORDER BY TotalProperties DESC;
+
+Query 9 – Aggregate Function
+
+Calculate the total value of all properties.
+
+SELECT
+    SUM(Price) AS TotalPropertyValue
+FROM Property;
+
+Query 10 – Average Property Price
+
+SELECT
+    AVG(Price) AS AveragePrice
+FROM Property;
+
+Query 11 – Highest Property Price
+
+SELECT
+    MAX(Price) AS HighestPrice
+FROM Property;
+
+Query 12 – Lowest Property Price
+
+SELECT
+    MIN(Price) AS LowestPrice
+FROM Property;
+
+Query 13 – Customers Who Visited a Property
+
+SELECT
+    c.FullName,
+    p.PropertyName,
+    v.VisitDate,
+    v.VisitStatus
+FROM Visit v
+INNER JOIN Customer c
+ON v.CustomerID = c.CustomerID
+INNER JOIN Property p
+ON v.PropertyID = p.PropertyID
+ORDER BY v.VisitDate;
+
+Query 14 – Sales Report
+
+SELECT
+    s.SaleID,
+    c.FullName,
+    p.PropertyName,
+    s.SaleAmount,
+    s.SaleDate
+FROM Sale s
+INNER JOIN Customer c
+ON s.CustomerID = c.CustomerID
+INNER JOIN Property p
+ON s.PropertyID = p.PropertyID;
+
+Query 15 – Payment Report
+
+SELECT
+    c.FullName,
+    p.PropertyName,
+    pay.Amount,
+    pay.PaymentMethod,
+    pay.PaymentDate
+FROM Payment pay
+INNER JOIN Customer c
+ON pay.CustomerID = c.CustomerID
+INNER JOIN Property p
+ON pay.PropertyID = p.PropertyID;
+
+Query 16 – LEFT JOIN
+
+Display all properties and their sales (including unsold properties).
+
+SELECT
+    p.PropertyName,
+    s.SaleID,
+    s.SaleAmount
+FROM Property p
+LEFT JOIN Sale s
+ON p.PropertyID = s.PropertyID
+ORDER BY p.PropertyID;
+
+Query 17 – LEFT JOIN
+
+Display all customers and their visits (including customers who have never visited a property).
+
+SELECT
+    c.FullName,
+    v.VisitDate,
+    v.VisitStatus
+FROM Customer c
+LEFT JOIN Visit v
+ON c.CustomerID = v.CustomerID
+ORDER BY c.CustomerID;
+
+Query 18 – GROUP BY
+
+Count the number of visits handled by each agent.
+
+SELECT
+    a.FullName,
+    COUNT(v.VisitID) AS TotalVisits
+FROM Agent a
+LEFT JOIN Visit v
+ON a.AgentID = v.AgentID
+GROUP BY a.FullName
+ORDER BY TotalVisits DESC;
+
+Query 19 – HAVING
+
+Display owners with more than one property.
+
+SELECT
+    o.FullName,
+    COUNT(p.PropertyID) AS TotalProperties
+FROM PropertyOwner o
+JOIN Property p
+ON o.OwnerID = p.OwnerID
+GROUP BY o.FullName
+HAVING COUNT(p.PropertyID) > 1;
+
+Query 20 – Subquery
+
+Display properties that cost more than the average property price.
+
+SELECT
+    PropertyName,
+    Location,
+    Price
+FROM Property
+WHERE Price >
+(
+    SELECT AVG(Price)
+    FROM Property
+);
+
+Query 21 – Subquery
+
+Display customers who have purchased a property
+
+SELECT
+    FullName
+FROM Customer
+WHERE CustomerID IN
+(
+    SELECT CustomerID
+    FROM Sale
+);
+
+Query 22 – EXISTS
+
+Display agents who have handled at least one property visit.
+
+
+SELECT
+    FullName
+FROM Agent a
+WHERE EXISTS
+(
+    SELECT 1
+    FROM Visit v
+    WHERE v.AgentID = a.AgentID
+);
+
+Query 23 – LIKE
+
+Find customers whose names start with 'F'.
+
+SELECT *
+FROM Customer
+WHERE FullName LIKE 'F%';
+
+Query 24 – BETWEEN
+
+Display properties priced between 50 million and 300 million.
+
+SELECT
+    PropertyName,
+    Price
+FROM Property
+WHERE Price BETWEEN 50000000 AND 300000000;
+
+Query 25 – IN
+
+Display properties located in Kigali or Huye.
+
+SELECT
+    PropertyName,
+    Location
+FROM Property
+WHERE Location IN ('Huye', 'Kigali');
