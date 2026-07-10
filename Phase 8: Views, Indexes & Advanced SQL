@@ -1,0 +1,125 @@
+Part A: Create Views
+
+View 1: Property Details
+
+CREATE VIEW vw_property_details AS
+SELECT
+    p.PropertyID,
+    p.PropertyName,
+    pt.TypeName,
+    o.FullName AS OwnerName,
+    p.Location,
+    p.Price,
+    p.Status
+FROM Property p
+JOIN PropertyOwner o
+ON p.OwnerID = o.OwnerID
+JOIN PropertyType pt
+ON p.PropertyTypeID = pt.PropertyTypeID;
+
+SELECT * FROM vw_property_details;
+
+View 2: Sales Report
+
+CREATE VIEW vw_sales_report AS
+SELECT
+    s.SaleID,
+    c.FullName AS CustomerName,
+    p.PropertyName,
+    s.SaleAmount,
+    s.SaleDate
+FROM Sale s
+JOIN Customer c
+ON s.CustomerID = c.CustomerID
+JOIN Property p
+ON s.PropertyID = p.PropertyID;
+
+SELECT * FROM vw_sales_report;
+
+View 3: Rental Report
+
+CREATE VIEW vw_rental_report AS
+SELECT
+    r.RentalID,
+    c.FullName AS CustomerName,
+    p.PropertyName,
+    r.StartDate,
+    r.EndDate,
+    r.MonthlyRent
+FROM Rental r
+JOIN Customer c
+ON r.CustomerID = c.CustomerID
+JOIN Property p
+ON r.PropertyID = p.PropertyID;
+
+SELECT * FROM vw_rental_report;
+
+View 4: Payment Report
+
+CREATE VIEW vw_payment_report AS
+SELECT
+    pay.PaymentID,
+    c.FullName,
+    p.PropertyName,
+    pay.Amount,
+    pay.PaymentMethod,
+    pay.PaymentDate
+FROM Payment pay
+JOIN Customer c
+ON pay.CustomerID = c.CustomerID
+JOIN Property p
+ON pay.PropertyID = p.PropertyID;
+
+SELECT * FROM vw_payment_report;
+
+
+Part B: Create IndexesPart B: Create Indexes
+
+
+Index on Property Name
+
+CREATE INDEX idx_property_name
+ON Property(PropertyName);
+
+
+CREATE INDEX idx_property_location
+ON Property(Location);
+
+
+CREATE INDEX idx_customer_name
+ON Customer(FullName);
+
+
+CREATE INDEX idx_agent_name
+ON Agent(FullName);
+
+
+CREATE INDEX idx_sale_date
+ON Sale(SaleDate);
+
+
+CREATE INDEX idx_payment_date
+ON Payment(PaymentDate);
+
+
+Verify the Views
+
+SELECT view_name
+FROM user_views
+ORDER BY view_name;
+
+Verify the Indexes
+
+SELECT index_name
+FROM user_indexes
+WHERE generated = 'N'
+ORDER BY index_name;
+
+
+
+
+
+
+
+
+
