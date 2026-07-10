@@ -1,0 +1,333 @@
+INSERT INTO PropertyOwner
+VALUES (OWNER_SEQ.NEXTVAL,
+'Jean Claude Habimana',
+'0788123456',
+'jeanclaude@example.com',
+'Kigali');
+
+INSERT INTO PropertyOwner
+VALUES (OWNER_SEQ.NEXTVAL,
+'Alice Mukamana',
+'0788234567',
+'alice@example.com',
+'Huye');
+
+INSERT INTO PropertyOwner
+VALUES (OWNER_SEQ.NEXTVAL,
+'Eric Ndayisenga',
+'0788345678',
+'eric@example.com',
+'Musanze');
+
+INSERT INTO PropertyOwner
+VALUES (OWNER_SEQ.NEXTVAL,
+'Grace Uwase',
+'0788456789',
+'grace@example.com',
+'Rubavu');
+
+INSERT INTO PropertyOwner
+VALUES (OWNER_SEQ.NEXTVAL,
+'Samuel Mugisha',
+'0788567890',
+'samuel@example.com',
+'Kigali');
+
+COMMIT;
+
+INSERT INTO Agent
+VALUES (AGENT_SEQ.NEXTVAL,
+'Patrick Niyonzima',
+'0791123456',
+'patrick@realestate.com',
+5);
+
+INSERT INTO Agent
+VALUES (AGENT_SEQ.NEXTVAL,
+'Diane Uwera',
+'0791234567',
+'diane@realestate.com',
+4.5);
+
+INSERT INTO Agent
+VALUES (AGENT_SEQ.NEXTVAL,
+'Emmanuel Bizimana',
+'0791345678',
+'emmanuel@realestate.com',
+6);
+
+INSERT INTO Agent
+VALUES (AGENT_SEQ.NEXTVAL,
+'Clarisse Ingabire',
+'0791456789',
+'clarisse@realestate.com',
+5.5);
+
+INSERT INTO Agent
+VALUES (AGENT_SEQ.NEXTVAL,
+'Didier Hakizimana',
+'0791567890',
+'didier@realestate.com',
+4);
+
+COMMIT;
+
+INSERT INTO Customer
+VALUES (CUSTOMER_SEQ.NEXTVAL,
+'Felix Rudasingwa',
+'0789000001',
+'felix@example.com',
+'Kigali');
+
+INSERT INTO Customer
+VALUES (CUSTOMER_SEQ.NEXTVAL,
+'Aline Mukamana',
+'0789000002',
+'aline@example.com',
+'Huye');
+
+INSERT INTO Customer
+VALUES (CUSTOMER_SEQ.NEXTVAL,
+'Eric Nshimiyimana',
+'0789000003',
+'ericn@example.com',
+'Rubavu');
+
+INSERT INTO Customer
+VALUES (CUSTOMER_SEQ.NEXTVAL,
+'Sandrine Uwimana',
+'0789000004',
+'sandrine@example.com',
+'Musanze');
+
+INSERT INTO Customer
+VALUES (CUSTOMER_SEQ.NEXTVAL,
+'Kevin Mugabo',
+'0789000005',
+'kevin@example.com',
+'Kigali');
+
+INSERT INTO Customer VALUES (CUSTOMER_SEQ.NEXTVAL,'Olivier Nsengimana','0789000006','olivier@example.com','Kigali');
+
+INSERT INTO Customer VALUES (CUSTOMER_SEQ.NEXTVAL,'Joyce Uwamahoro','0789000007','joyce@example.com','Muhanga');
+
+INSERT INTO Customer VALUES (CUSTOMER_SEQ.NEXTVAL,'Patrick Habineza','0789000008','patrick@example.com','Rusizi');
+
+INSERT INTO Customer VALUES (CUSTOMER_SEQ.NEXTVAL,'Diane Mukeshimana','0789000009','diane@example.com','Nyagatare');
+
+INSERT INTO Customer VALUES (CUSTOMER_SEQ.NEXTVAL,'Jean Bosco','0789000010','jeanbosco@example.com','Kigali');
+
+COMMIT;
+
+INSERT INTO PropertyType VALUES (PROPERTYTYPE_SEQ.NEXTVAL,'House');
+INSERT INTO PropertyType VALUES (PROPERTYTYPE_SEQ.NEXTVAL,'Apartment');
+INSERT INTO PropertyType VALUES (PROPERTYTYPE_SEQ.NEXTVAL,'Land');
+INSERT INTO PropertyType VALUES (PROPERTYTYPE_SEQ.NEXTVAL,'Office');
+INSERT INTO PropertyType VALUES (PROPERTYTYPE_SEQ.NEXTVAL,'Commercial Building');
+
+COMMIT;
+
+SELECT COUNT(*) FROM PropertyOwner;
+
+SELECT COUNT(*) FROM Agent;
+
+SELECT COUNT(*) FROM Customer;
+
+SELECT COUNT(*) FROM PropertyType;
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 1, 1, 1,
+'Modern Family House',
+'Kigali - Kicukiro',
+85000000,
+'Available',
+4,
+3);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 2, 2, 2,
+'Luxury Apartment',
+'Kigali - Nyarutarama',
+120000000,
+'Available',
+3,
+2);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 3, 3, 3,
+'Residential Land',
+'Musanze',
+35000000,
+'Available',
+0,
+0);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 4, 4, 4,
+'Office Space',
+'Kigali CBD',
+250000000,
+'Available',
+8,
+4);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 5, 5, 5,
+'Commercial Building',
+'Huye',
+400000000,
+'Available',
+12,
+8);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 1, 2, 1,
+'Lake View House',
+'Rubavu',
+95000000,
+'Available',
+5,
+4);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 2, 3, 2,
+'City Apartment',
+'Kigali - Kimihurura',
+98000000,
+'Available',
+2,
+2);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 3, 4, 3,
+'Investment Land',
+'Bugesera',
+45000000,
+'Available',
+0,
+0);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 4, 5, 4,
+'Business Offices',
+'Kigali - Remera',
+280000000,
+'Available',
+10,
+6);
+
+INSERT INTO Property
+VALUES (PROPERTY_SEQ.NEXTVAL, 5, 1, 5,
+'Shopping Complex',
+'Kigali - Nyamirambo',
+520000000,
+'Available',
+15,
+10);
+
+COMMIT;
+
+INSERT INTO Holiday VALUES (HOLIDAY_SEQ.NEXTVAL,
+TO_DATE('01-01-2026','DD-MM-YYYY'),
+'New Year');
+
+INSERT INTO Holiday VALUES (HOLIDAY_SEQ.NEXTVAL,
+TO_DATE('07-04-2026','DD-MM-YYYY'),
+'Genocide Memorial Day');
+
+INSERT INTO Holiday VALUES (HOLIDAY_SEQ.NEXTVAL,
+TO_DATE('01-07-2026','DD-MM-YYYY'),
+'Independence Day');
+
+INSERT INTO Holiday VALUES (HOLIDAY_SEQ.NEXTVAL,
+TO_DATE('04-07-2026','DD-MM-YYYY'),
+'Liberation Day');
+
+INSERT INTO Holiday VALUES (HOLIDAY_SEQ.NEXTVAL,
+TO_DATE('25-12-2026','DD-MM-YYYY'),
+'Christmas');
+
+COMMIT;
+
+INSERT INTO Sale VALUES (SALE_SEQ.NEXTVAL,1,1,1,TO_DATE('15-07-2026','DD-MM-YYYY'),85000000);
+
+INSERT INTO Sale VALUES (SALE_SEQ.NEXTVAL,2,2,2,TO_DATE('16-07-2026','DD-MM-YYYY'),120000000);
+
+INSERT INTO Sale VALUES (SALE_SEQ.NEXTVAL,4,4,4,TO_DATE('17-07-2026','DD-MM-YYYY'),250000000);
+
+INSERT INTO Sale VALUES (SALE_SEQ.NEXTVAL,5,5,5,TO_DATE('18-07-2026','DD-MM-YYYY'),400000000);
+
+INSERT INTO Sale VALUES (SALE_SEQ.NEXTVAL,10,15,1,TO_DATE('19-07-2026','DD-MM-YYYY'),520000000);
+
+COMMIT;
+
+INSERT INTO Visit
+VALUES (VISIT_SEQ.NEXTVAL,6,11,2,
+TO_DATE('10-07-2026','DD-MM-YYYY'),'Scheduled');
+
+INSERT INTO Visit
+VALUES (VISIT_SEQ.NEXTVAL,7,12,3,
+TO_DATE('11-07-2026','DD-MM-YYYY'),'Completed');
+
+INSERT INTO Visit
+VALUES (VISIT_SEQ.NEXTVAL,8,13,4,
+TO_DATE('12-07-2026','DD-MM-YYYY'),'Scheduled');
+
+INSERT INTO Visit
+VALUES (VISIT_SEQ.NEXTVAL,9,14,5,
+TO_DATE('13-07-2026','DD-MM-YYYY'),'Completed');
+
+INSERT INTO Visit
+VALUES (VISIT_SEQ.NEXTVAL,10,15,1,
+TO_DATE('14-07-2026','DD-MM-YYYY'),'Scheduled');
+
+COMMIT;
+
+INSERT INTO Rental VALUES (RENTAL_SEQ.NEXTVAL,3,3,3,
+TO_DATE('01-08-2026','DD-MM-YYYY'),
+TO_DATE('31-07-2027','DD-MM-YYYY'),
+500000);
+
+INSERT INTO Rental VALUES (RENTAL_SEQ.NEXTVAL,6,11,2,
+TO_DATE('05-08-2026','DD-MM-YYYY'),
+TO_DATE('04-08-2027','DD-MM-YYYY'),
+800000);
+
+INSERT INTO Rental VALUES (RENTAL_SEQ.NEXTVAL,7,12,3,
+TO_DATE('10-08-2026','DD-MM-YYYY'),
+TO_DATE('09-08-2027','DD-MM-YYYY'),
+750000);
+
+INSERT INTO Rental VALUES (RENTAL_SEQ.NEXTVAL,8,13,4,
+TO_DATE('15-08-2026','DD-MM-YYYY'),
+TO_DATE('14-08-2027','DD-MM-YYYY'),
+450000);
+
+INSERT INTO Rental VALUES (RENTAL_SEQ.NEXTVAL,9,14,5,
+TO_DATE('20-08-2026','DD-MM-YYYY'),
+TO_DATE('19-08-2027','DD-MM-YYYY'),
+1200000);
+
+COMMIT;
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,1,1,85000000,TO_DATE('15-07-2026','DD-MM-YYYY'),'Bank Transfer');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,2,2,120000000,TO_DATE('16-07-2026','DD-MM-YYYY'),'Cash');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,3,3,500000,TO_DATE('01-08-2026','DD-MM-YYYY'),'Mobile Money');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,4,4,250000000,TO_DATE('17-07-2026','DD-MM-YYYY'),'Bank Transfer');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,5,5,400000000,TO_DATE('18-07-2026','DD-MM-YYYY'),'Credit Card');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,11,6,800000,TO_DATE('05-08-2026','DD-MM-YYYY'),'Mobile Money');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,12,7,750000,TO_DATE('10-08-2026','DD-MM-YYYY'),'Cash');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,13,8,450000,TO_DATE('15-08-2026','DD-MM-YYYY'),'Bank Transfer');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,14,9,1200000,TO_DATE('20-08-2026','DD-MM-YYYY'),'Credit Card');
+
+INSERT INTO Payment VALUES (PAYMENT_SEQ.NEXTVAL,15,10,520000000,TO_DATE('19-07-2026','DD-MM-YYYY'),'Bank Transfer');
+
+COMMIT;
