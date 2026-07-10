@@ -1,0 +1,164 @@
+CREATE TABLE PropertyOwner (
+    OwnerID NUMBER PRIMARY KEY,
+    FullName VARCHAR2(100) NOT NULL,
+    Phone VARCHAR2(20) NOT NULL UNIQUE,
+    Email VARCHAR2(100) UNIQUE,
+    Address VARCHAR2(150) NOT NULL
+);
+
+CREATE TABLE Agent (
+    AgentID NUMBER PRIMARY KEY,
+    FullName VARCHAR2(100) NOT NULL,
+    Phone VARCHAR2(20) NOT NULL UNIQUE,
+    Email VARCHAR2(100) UNIQUE,
+    CommissionRate NUMBER(5,2)
+        CHECK (CommissionRate >= 0)
+);
+
+CREATE TABLE Customer (
+    CustomerID NUMBER PRIMARY KEY,
+    FullName VARCHAR2(100) NOT NULL,
+    Phone VARCHAR2(20) NOT NULL UNIQUE,
+    Email VARCHAR2(100) UNIQUE,
+    Address VARCHAR2(150) NOT NULL
+);
+
+CREATE TABLE PropertyType (
+    PropertyTypeID NUMBER PRIMARY KEY,
+    TypeName VARCHAR2(50) NOT NULL UNIQUE
+);
+
+CREATE TABLE Property (
+    PropertyID NUMBER PRIMARY KEY,
+    OwnerID NUMBER NOT NULL,
+    AgentID NUMBER NOT NULL,
+    PropertyTypeID NUMBER NOT NULL,
+    PropertyName VARCHAR2(100) NOT NULL,
+    Location VARCHAR2(100) NOT NULL,
+    Price NUMBER(12,2) NOT NULL CHECK (Price > 0),
+    Status VARCHAR2(20) DEFAULT 'Available'
+        CHECK (Status IN ('Available', 'Sold', 'Rented')),
+    Bedrooms NUMBER DEFAULT 0 CHECK (Bedrooms >= 0),
+    Bathrooms NUMBER DEFAULT 0 CHECK (Bathrooms >= 0),
+
+    CONSTRAINT fk_property_owner
+        FOREIGN KEY (OwnerID)
+        REFERENCES PropertyOwner(OwnerID),
+
+    CONSTRAINT fk_property_agent
+        FOREIGN KEY (AgentID)
+        REFERENCES Agent(AgentID),
+
+    CONSTRAINT fk_property_type
+        FOREIGN KEY (PropertyTypeID)
+        REFERENCES PropertyType(PropertyTypeID)
+);
+
+CREATE TABLE Visit (
+    VisitID NUMBER PRIMARY KEY,
+    PropertyID NUMBER NOT NULL,
+    CustomerID NUMBER NOT NULL,
+    AgentID NUMBER NOT NULL,
+    VisitDate DATE NOT NULL,
+    VisitStatus VARCHAR2(20) DEFAULT 'Scheduled'
+        CHECK (VisitStatus IN ('Scheduled', 'Completed', 'Cancelled')),
+
+    CONSTRAINT fk_visit_property
+        FOREIGN KEY (PropertyID)
+        REFERENCES Property(PropertyID),
+
+    CONSTRAINT fk_visit_customer
+        FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID),
+
+    CONSTRAINT fk_visit_agent
+        FOREIGN KEY (AgentID)
+        REFERENCES Agent(AgentID)
+);
+
+CREATE TABLE Sale (
+    SaleID NUMBER PRIMARY KEY,
+    PropertyID NUMBER NOT NULL,
+    CustomerID NUMBER NOT NULL,
+    AgentID NUMBER NOT NULL,
+    SaleDate DATE NOT NULL,
+    SaleAmount NUMBER(12,2) NOT NULL
+        CHECK (SaleAmount > 0),
+
+    CONSTRAINT fk_sale_property
+        FOREIGN KEY (PropertyID)
+        REFERENCES Property(PropertyID),
+
+    CONSTRAINT fk_sale_customer
+        FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID),
+
+    CONSTRAINT fk_sale_agent
+        FOREIGN KEY (AgentID)
+        REFERENCES Agent(AgentID)
+);
+
+CREATE TABLE Rental (
+    RentalID NUMBER PRIMARY KEY,
+    PropertyID NUMBER NOT NULL,
+    CustomerID NUMBER NOT NULL,
+    AgentID NUMBER NOT NULL,
+    StartDate DATE NOT NULL,
+    EndDate DATE NOT NULL,
+    MonthlyRent NUMBER(12,2) NOT NULL
+        CHECK (MonthlyRent > 0),
+
+    CONSTRAINT fk_rental_property
+        FOREIGN KEY (PropertyID)
+        REFERENCES Property(PropertyID),
+
+    CONSTRAINT fk_rental_customer
+        FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID),
+
+    CONSTRAINT fk_rental_agent
+        FOREIGN KEY (AgentID)
+        REFERENCES Agent(AgentID),
+
+    CONSTRAINT chk_rental_dates
+        CHECK (EndDate > StartDate)
+);
+
+CREATE TABLE Payment (
+    PaymentID NUMBER PRIMARY KEY,
+    CustomerID NUMBER NOT NULL,
+    PropertyID NUMBER NOT NULL,
+    Amount NUMBER(12,2) NOT NULL
+        CHECK (Amount > 0),
+    PaymentDate DATE NOT NULL,
+    PaymentMethod VARCHAR2(30) NOT NULL
+        CHECK (PaymentMethod IN ('Cash', 'Bank Transfer', 'Mobile Money', 'Credit Card')),
+
+    CONSTRAINT fk_payment_customer
+        FOREIGN KEY (CustomerID)
+        REFERENCES Customer(CustomerID),
+
+    CONSTRAINT fk_payment_property
+        FOREIGN KEY (PropertyID)
+        REFERENCES Property(PropertyID)
+);
+
+CREATE TABLE Holiday (
+    HolidayID NUMBER PRIMARY KEY,
+    HolidayDate DATE NOT NULL UNIQUE,
+    HolidayName VARCHAR2(100) NOT NULL
+);
+
+CREATE TABLE AuditLog (
+    AuditID NUMBER PRIMARY KEY,
+    Username VARCHAR2(50) NOT NULL,
+    Action VARCHAR2(20) NOT NULL
+        CHECK (Action IN ('INSERT', 'UPDATE', 'DELETE')),
+    TableName VARCHAR2(50) NOT NULL,
+    ActionDate DATE DEFAULT SYSDATE NOT NULL
+);
+
+
+SELECT table_name
+FROM user_tables
+ORDER BY table_name;
