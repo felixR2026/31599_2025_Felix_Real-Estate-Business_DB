@@ -1,0 +1,183 @@
+
+Objective
+
+In this phase, you will:
+
+Create database triggers
+Automatically record changes in the AUDITLOG table
+Validate data before insertion
+Learn how Oracle automates tasks
+
+
+
+Trigger 1: Audit New Customers
+
+
+Whenever a new customer is added, Oracle will automatically save a record in AUDITLOG.
+
+CREATE OR REPLACE TRIGGER trg_customer_insert
+AFTER INSERT ON Customer
+FOR EACH ROW
+BEGIN
+    INSERT INTO AuditLog
+    (
+        AuditID,
+        Username,
+        Action,
+        TableName,
+        ActionDate
+    )
+    VALUES
+    (
+        AUDITLOG_SEQ.NEXTVAL,
+        USER,
+        'INSERT',
+        'CUSTOMER',
+        SYSDATE
+    );
+END;
+/
+
+
+Test it
+
+INSERT INTO Customer
+VALUES
+(
+    CUSTOMER_SEQ.NEXTVAL,
+    'Test Customer',
+    '0788888888',
+    'test@example.com',
+    'Kigali'
+);
+
+COMMIT;
+
+Check the audit log:
+
+SELECT *
+FROM AuditLog;
+
+
+Trigger 2: Audit Property Updates
+
+CREATE OR REPLACE TRIGGER trg_property_update
+AFTER UPDATE ON Property
+FOR EACH ROW
+BEGIN
+    INSERT INTO AuditLog
+    (
+        AuditID,
+        Username,
+        Action,
+        TableName,
+        ActionDate
+    )
+    VALUES
+    (
+        AUDITLOG_SEQ.NEXTVAL,
+        USER,
+        'UPDATE',
+        'PROPERTY',
+        SYSDATE
+    );
+END;
+/
+
+
+Test it
+
+UPDATE Property
+SET Price = Price + 500000
+WHERE PropertyID = 1;
+
+COMMIT;
+
+Check the audit log:
+
+SELECT *
+FROM AuditLog
+ORDER BY AuditID;
+
+
+Trigger 3: Prevent Negative Property Prices
+
+CREATE OR REPLACE TRIGGER trg_check_property_price
+BEFORE INSERT OR UPDATE ON Property
+FOR EACH ROW
+BEGIN
+    IF :NEW.Price < 0 THEN
+        RAISE_APPLICATION_ERROR(
+            -20001,
+            'Property price cannot be negative.'
+        );
+    END IF;
+END;
+/
+
+
+Test it
+
+UPDATE Property
+SET Price = -500000
+WHERE PropertyID = 1;
+
+
+Trigger 4: Prevent Invalid Rental Dates
+
+CREATE OR REPLACE TRIGGER trg_check_rental_dates
+BEFORE INSERT OR UPDATE ON Rental
+FOR EACH ROW
+BEGIN
+    IF :NEW.EndDate <= :NEW.StartDate THEN
+        RAISE_APPLICATION_ERROR(
+            -20002,
+            'End date must be after start date.'
+        );
+    END IF;
+END;
+/
+
+
+Test it
+
+UPDATE Rental
+SET EndDate = StartDate
+WHERE RentalID = 1;
+
+
+Trigger 5: Audit Property Deletions
+
+CREATE OR REPLACE TRIGGER trg_property_delete
+AFTER DELETE ON Property
+FOR EACH ROW
+BEGIN
+    INSERT INTO AuditLog
+    (
+        AuditID,
+        Username,
+        Action,
+        TableName,
+        ActionDate
+    )
+    VALUES
+    (
+        AUDITLOG_SEQ.NEXTVAL,
+        USER,
+        'DELETE',
+        'PROPERTY',
+        SYSDATE
+    );
+END;
+/
+
+
+
+Verify All Triggers
+
+
+SELECT trigger_name,
+       table_name,
+       status
+FROM user_triggers
+ORDER BY trigger_name;
