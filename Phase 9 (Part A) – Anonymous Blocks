@@ -1,0 +1,157 @@
+Phase 9 (Part A) – Anonymous Blocks, Loops, Cursors & Exception Handling
+
+
+
+Part 1: Anonymous Block
+
+Display a welcome message.
+
+SET SERVEROUTPUT ON;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Welcome to Felix Real Estate Business Database');
+END;
+/
+
+Part 2: Anonymous Block with Variable
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_company VARCHAR2(50);
+BEGIN
+    v_company := 'Felix Real Estate Business';
+
+    DBMS_OUTPUT.PUT_LINE('Company: ' || v_company);
+END;
+/
+
+
+Part 3: IF Statement
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_price NUMBER := 120000000;
+BEGIN
+    IF v_price > 100000000 THEN
+        DBMS_OUTPUT.PUT_LINE('Luxury Property');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Standard Property');
+    END IF;
+END;
+/
+
+
+Part 4: LOOP
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    i NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE('Number: ' || i);
+
+        i := i + 1;
+
+        EXIT WHEN i > 5;
+    END LOOP;
+END;
+/
+
+
+Part 5: FOR LOOP
+
+
+SET SERVEROUTPUT ON;
+
+BEGIN
+    FOR rec IN
+    (
+        SELECT PropertyID, PropertyName
+        FROM Property
+        ORDER BY PropertyID
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            rec.PropertyID || ' - ' || rec.PropertyName
+        );
+    END LOOP;
+END;
+/
+
+
+Part 6: WHILE LOOP
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    counter NUMBER := 1;
+BEGIN
+    WHILE counter <= 5 LOOP
+
+        DBMS_OUTPUT.PUT_LINE('Counter = ' || counter);
+
+        counter := counter + 1;
+
+    END LOOP;
+END;
+/
+
+
+Part 7: Exception Handling
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_price NUMBER;
+BEGIN
+
+    SELECT Price
+    INTO v_price
+    FROM Property
+    WHERE PropertyID = 100;
+
+    DBMS_OUTPUT.PUT_LINE(v_price);
+
+EXCEPTION
+
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Property not found.');
+
+END;
+/
+
+
+Part 8: Cursor
+
+Display every customer.
+
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+
+    CURSOR customer_cursor IS
+        SELECT CustomerID,
+               FullName
+        FROM Customer;
+
+BEGIN
+
+    FOR rec IN customer_cursor LOOP
+
+        DBMS_OUTPUT.PUT_LINE(
+            rec.CustomerID || ' - ' || rec.FullName
+        );
+
+    END LOOP;
+
+END;
+/
