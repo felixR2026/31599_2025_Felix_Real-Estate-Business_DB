@@ -1,0 +1,105 @@
+Test the Tables
+
+SELECT COUNT(*) FROM PropertyOwner;
+
+SELECT COUNT(*) FROM Agent;
+
+SELECT COUNT(*) FROM Customer;
+
+SELECT COUNT(*) FROM Property;
+
+SELECT COUNT(*) FROM Visit;
+
+SELECT COUNT(*) FROM Sale;
+
+SELECT COUNT(*) FROM Rental;
+
+SELECT COUNT(*) FROM Payment;
+
+SELECT COUNT(*) FROM AuditLog;
+
+
+Verify Database Objects
+
+
+Tables Verify
+
+SELECT table_name
+FROM user_tables
+ORDER BY table_name;
+
+Views Verify
+
+SELECT view_name
+FROM user_views
+ORDER BY view_name;
+
+Procedures Verify
+
+SELECT object_name
+FROM user_objects
+WHERE object_type='PROCEDURE'
+ORDER BY object_name;
+
+Functions Verify
+
+SELECT object_name
+FROM user_objects
+WHERE object_type='FUNCTION'
+ORDER BY object_name;
+
+Packages
+
+SELECT object_name, object_type
+FROM user_objects
+WHERE object_type LIKE 'PACKAGE%'
+ORDER BY object_name;
+
+Triggers Verify
+
+SELECT trigger_name, status
+FROM user_triggers
+ORDER BY trigger_name;
+
+
+Test a View
+
+SELECT *
+FROM vw_property_details;
+
+Test a Stored Procedure
+
+BEGIN
+    ShowProperties;
+END;
+/
+
+Test a Function
+
+SELECT GetPropertyPrice(1)
+FROM Dual;
+
+Test the Package
+
+BEGIN
+    RealEstatePackage.CountCustomers;
+END;
+/
+
+Test a Trigger
+
+INSERT INTO Customer
+VALUES
+(
+    CUSTOMER_SEQ.NEXTVAL,
+    'Demo Customer',
+    '0799999999',
+    'demo@example.com',
+    'Musanze'
+);
+
+COMMIT;
+
+SELECT *
+FROM AuditLog
+ORDER BY AuditID;
