@@ -1,0 +1,133 @@
+
+Function 1: Get Property Price
+
+
+CREATE OR REPLACE FUNCTION GetPropertyPrice
+(
+    p_PropertyID NUMBER
+)
+RETURN NUMBER
+AS
+    v_Price NUMBER;
+BEGIN
+    SELECT Price
+    INTO v_Price
+    FROM Property
+    WHERE PropertyID = p_PropertyID;
+
+    RETURN v_Price;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 0;
+END;
+/
+
+SELECT GetPropertyPrice(1) AS Price
+FROM Dual;
+
+
+Function 2: Count Properties
+
+
+CREATE OR REPLACE FUNCTION CountProperties
+RETURN NUMBER
+AS
+    v_Total NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_Total
+    FROM Property;
+
+    RETURN v_Total;
+END;
+/
+
+SELECT CountProperties() AS TotalProperties
+FROM Dual;
+
+
+Function 3: Count Customers
+
+
+CREATE OR REPLACE FUNCTION CountAllCustomers
+RETURN NUMBER
+AS
+    v_Total NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_Total
+    FROM Customer;
+
+    RETURN v_Total;
+END;
+/
+
+SELECT CountAllCustomers() AS TotalCustomers
+FROM Dual;
+
+
+Function 4: Get Customer Name
+
+
+CREATE OR REPLACE FUNCTION GetCustomerName
+(
+    p_CustomerID NUMBER
+)
+RETURN VARCHAR2
+AS
+    v_Name Customer.FullName%TYPE;
+BEGIN
+    SELECT FullName
+    INTO v_Name
+    FROM Customer
+    WHERE CustomerID = p_CustomerID;
+
+    RETURN v_Name;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 'Customer Not Found';
+END;
+/
+
+SELECT GetCustomerName(1) AS CustomerName
+FROM Dual;
+
+
+Function 5: Check Property Status
+
+
+CREATE OR REPLACE FUNCTION GetPropertyStatus
+(
+    p_PropertyID NUMBER
+)
+RETURN VARCHAR2
+AS
+    v_Status Property.Status%TYPE;
+BEGIN
+    SELECT Status
+    INTO v_Status
+    FROM Property
+    WHERE PropertyID = p_PropertyID;
+
+    RETURN v_Status;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 'Unknown';
+END;
+/
+
+SELECT GetPropertyStatus(1) AS Status
+FROM Dual;
+
+
+Verify All Functions
+
+
+SELECT object_name
+FROM user_objects
+WHERE object_type = 'FUNCTION'
+ORDER BY object_name;
+
