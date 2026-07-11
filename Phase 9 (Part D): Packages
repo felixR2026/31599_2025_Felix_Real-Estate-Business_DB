@@ -1,0 +1,140 @@
+
+A package groups related procedures and functions together. It's a common Oracle best practice and is often required in database projects.
+
+
+Step 1: Create the Package Specification
+
+
+CREATE OR REPLACE PACKAGE RealEstatePackage AS
+
+    PROCEDURE ShowProperties;
+
+    PROCEDURE CountCustomers;
+
+    FUNCTION CountProperties RETURN NUMBER;
+
+    FUNCTION GetPropertyPrice
+    (
+        p_PropertyID NUMBER
+    )
+    RETURN NUMBER;
+
+END RealEstatePackage;
+/
+
+Step 2: Create the Package Body
+
+
+CREATE OR REPLACE PACKAGE BODY RealEstatePackage AS
+
+    PROCEDURE ShowProperties
+    AS
+    BEGIN
+        FOR rec IN
+        (
+            SELECT PropertyID,
+                   PropertyName,
+                   Price
+            FROM Property
+            ORDER BY PropertyID
+        )
+        LOOP
+            DBMS_OUTPUT.PUT_LINE(
+                rec.PropertyID || ' - ' ||
+                rec.PropertyName || ' - ' ||
+                rec.Price
+            );
+        END LOOP;
+    END ShowProperties;
+
+
+    PROCEDURE CountCustomers
+    AS
+        v_Total NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_Total
+        FROM Customer;
+
+        DBMS_OUTPUT.PUT_LINE(
+            'Total Customers: ' || v_Total
+        );
+    END CountCustomers;
+
+
+    FUNCTION CountProperties
+    RETURN NUMBER
+    AS
+        v_Total NUMBER;
+    BEGIN
+        SELECT COUNT(*)
+        INTO v_Total
+        FROM Property;
+
+        RETURN v_Total;
+    END CountProperties;
+
+
+    FUNCTION GetPropertyPrice
+    (
+        p_PropertyID NUMBER
+    )
+    RETURN NUMBER
+    AS
+        v_Price NUMBER;
+    BEGIN
+
+        SELECT Price
+        INTO v_Price
+        FROM Property
+        WHERE PropertyID = p_PropertyID;
+
+        RETURN v_Price;
+
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+            RETURN 0;
+    END GetPropertyPrice;
+
+END RealEstatePackage;
+/
+
+Step 3: Test the Package
+
+Test Procedure 1
+
+BEGIN
+    RealEstatePackage.ShowProperties;
+END;
+/
+
+Test Procedure 2
+
+BEGIN
+    RealEstatePackage.CountCustomers;
+END;
+/
+
+
+Test Function 1
+
+
+SELECT RealEstatePackage.CountProperties
+FROM Dual;
+
+Test Function 2
+
+SELECT RealEstatePackage.GetPropertyPrice(1)
+FROM Dual;
+
+Step 4: Verify the Package
+
+
+SELECT object_name,
+       object_type
+FROM user_objects
+WHERE object_type LIKE 'PACKAGE%'
+ORDER BY object_name;
+
+
+
