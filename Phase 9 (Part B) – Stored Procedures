@@ -1,0 +1,148 @@
+
+Phase 9 (Part B): Stored Procedures
+
+
+Procedure 1: Display All Properties
+
+CREATE OR REPLACE PROCEDURE ShowProperties
+AS
+BEGIN
+    FOR rec IN (
+        SELECT PropertyID, PropertyName, Price
+        FROM Property
+        ORDER BY PropertyID
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            rec.PropertyID || ' - ' ||
+            rec.PropertyName || ' - ' ||
+            rec.Price
+        );
+    END LOOP;
+END;
+/
+
+BEGIN
+    ShowProperties;
+END;
+/
+
+
+Procedure 2: Find a Property by ID
+
+
+CREATE OR REPLACE PROCEDURE FindProperty
+(
+    p_PropertyID IN NUMBER
+)
+AS
+    v_Name Property.PropertyName%TYPE;
+    v_Price Property.Price%TYPE;
+BEGIN
+    SELECT PropertyName, Price
+    INTO v_Name, v_Price
+    FROM Property
+    WHERE PropertyID = p_PropertyID;
+
+    DBMS_OUTPUT.PUT_LINE('Property: ' || v_Name);
+    DBMS_OUTPUT.PUT_LINE('Price: ' || v_Price);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Property not found.');
+END;
+/
+
+
+BEGIN
+    FindProperty(1);
+END;
+/
+
+
+Procedure 3: Count Customers
+
+
+CREATE OR REPLACE PROCEDURE CountCustomers
+AS
+    v_Total NUMBER;
+BEGIN
+    SELECT COUNT(*)
+    INTO v_Total
+    FROM Customer;
+
+    DBMS_OUTPUT.PUT_LINE('Total Customers: ' || v_Total);
+END;
+/
+
+
+BEGIN
+    CountCustomers;
+END;
+/
+
+
+Procedure 4: Show Available Properties
+
+
+CREATE OR REPLACE PROCEDURE AvailableProperties
+AS
+BEGIN
+    FOR rec IN (
+        SELECT PropertyName, Location
+        FROM Property
+        WHERE Status = 'Available'
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            rec.PropertyName || ' - ' || rec.Location
+        );
+    END LOOP;
+END;
+/
+
+
+BEGIN
+    AvailableProperties;
+END;
+/
+
+
+Procedure 5: Show Payments
+
+
+CREATE OR REPLACE PROCEDURE ShowPayments
+AS
+BEGIN
+    FOR rec IN (
+        SELECT PaymentID,
+               Amount,
+               PaymentMethod
+        FROM Payment
+        ORDER BY PaymentID
+    )
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(
+            rec.PaymentID || ' - ' ||
+            rec.Amount || ' - ' ||
+            rec.PaymentMethod
+        );
+    END LOOP;
+END;
+/
+
+
+BEGIN
+    ShowPayments;
+END;
+/
+
+
+Verify Your Procedures
+
+
+SELECT object_name
+FROM user_objects
+WHERE object_type = 'PROCEDURE'
+ORDER BY object_name;
+
